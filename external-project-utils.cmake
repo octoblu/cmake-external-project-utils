@@ -28,8 +28,8 @@ macro (linkExternalProject target name)
 
   message("\t target_link_libraries(${target} ${${bigname}_LIB_DIR})")
 
-  target_link_libraries(${target}
-    ${${bigname}_LIB_DIR}/lib${name}.a
+  link_directories(${target}
+    ${${bigname}_LIB_DIR}
   )
 
   add_dependencies(${target} ${name})
