@@ -12,12 +12,13 @@ macro (getExternalProject name url)
   string(TOUPPER ${name} bigname)
 
   ExternalProject_Get_Property(${name} source_dir)
-  set(${bigname}_INCLUDE_DIR ${source_dir}/include)
+  set(${bigname}_INCLUDE_DIR ${source_dir})
 
   ExternalProject_Get_Property(${name} binary_dir)
   set(${bigname}_LIB_DIR ${binary_dir})
 
   message("\t include_directories(${CMAKE_PROJECT_NAME} ${${bigname}_INCLUDE_DIR})")
+  message("\t include_directories(${CMAKE_PROJECT_NAME} ${${bigname}_INCLUDE_DIR}/include)")
   include_directories(${CMAKE_PROJECT_NAME}
     ${${bigname}_INCLUDE_DIR}
     ${${bigname}_INCLUDE_DIR}/include
@@ -31,7 +32,9 @@ macro (linkExternalProject target name)
 
   message("\t target_link_libraries(${target} ${${bigname}_LIB_DIR})")
 
-  link_directories(${target}
+  target_link_libraries(${target} ${${bigname}_LIB_DIR}/lib${name}.a)
+
+  link_directories(
     ${${bigname}_LIB_DIR}
   )
 
