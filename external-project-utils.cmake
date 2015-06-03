@@ -18,7 +18,10 @@ macro (getExternalProject name url)
   set(${bigname}_LIB_DIR ${binary_dir})
 
   message("\t include_directories(${CMAKE_PROJECT_NAME} ${${bigname}_INCLUDE_DIR})")
-  include_directories(${CMAKE_PROJECT_NAME} ${${bigname}_INCLUDE_DIR})
+  include_directories(${CMAKE_PROJECT_NAME}
+    ${${bigname}_INCLUDE_DIR}
+    ${${bigname}_INCLUDE_DIR}/include
+  )
 
 endmacro(getExternalProject)
 
