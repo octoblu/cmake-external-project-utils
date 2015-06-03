@@ -22,16 +22,16 @@ macro (getExternalProject name url)
 
 endmacro(getExternalProject)
 
-macro (linkExternalProject name)
-  message("linkExternalProject(${name} ${url})")
+macro (linkExternalProject target name)
+  message("linkExternalProject(${target} ${name})")
   string(TOUPPER ${name} bigname)
 
-  message("\t target_link_libraries(${CMAKE_PROJECT_NAME} ${${bigname}_LIB_DIR})")
+  message("\t target_link_libraries(${target} ${${bigname}_LIB_DIR})")
 
-  target_link_libraries(${CMAKE_PROJECT_NAME}
+  target_link_libraries(${target}
     ${${bigname}_LIB_DIR}/lib${name}.a
   )
 
-  add_dependencies(${CMAKE_PROJECT_NAME} ${name})
+  add_dependencies(${target} ${name})
 
 endmacro(linkExternalProject)
